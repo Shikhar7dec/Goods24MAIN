@@ -18,7 +18,9 @@
         tools:layout_editor_absoluteY="60dp"
         android:layout_below="@+id/welcomeTextView"
         android:layout_alignLeft="@+id/welcomeTextView"
-        android:layout_alignStart="@+id/welcomeTextView" />
+        android:layout_alignStart="@+id/welcomeTextView"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
 
     <TextView
         android:id="@+id/welcomeTextView"

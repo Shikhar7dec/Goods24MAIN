@@ -39,17 +39,20 @@ public class RegisterActivity extends AppCompatActivity {
         EditText pass = (EditText)findViewById(R.id.regPass);
         EditText rePass= (EditText)findViewById(R.id.regPassRe);
 
+        //Log.d("check","value of fname>>>"+fname.getText().toString());
+
         Boolean areAllFieldsEmpty = ValidationUtil.isEmptyTextField(fname)
                 ||ValidationUtil.isEmptyTextField(lname)
                 ||ValidationUtil.isEmptyTextField(email)
                 ||ValidationUtil.isEmptyTextField(phone)
                 ||ValidationUtil.isEmptyTextField(pass)
                 ||ValidationUtil.isEmptyTextField(rePass);
+        //Log.d("check","value of Boolean areAllFieldsEmpty>>>"+areAllFieldsEmpty);
 
         if(!areAllFieldsEmpty){
-            if(true){//ValidationUtil.isValidEmail(email)){
-                if(true){//ValidationUtil.isValidPhoneNumber(phone)){
-                    if(true){//ValidationUtil.passwordMatcher(pass,rePass)){
+            if(ValidationUtil.isValidEmail(email)){
+                if(ValidationUtil.isValidPhoneNumber(phone)){
+                    if(ValidationUtil.passwordMatcher(pass,rePass)){
                         Bundle bundle = getIntent().getExtras();
                         String utype = bundle.getString("utype");
                         RequestParams rp = new RequestParams();
@@ -66,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else{
                         Toast.makeText(getApplicationContext(),
-                                "Password doesn't match Confirm Password",
+                                "Password doesn't match with Confirm Password",
                                 Toast.LENGTH_LONG)
                                 .show();
                     }

@@ -41,9 +41,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
 
         switch (position) {
             case 0:
-                Toast.makeText(getApplicationContext(),"Please select User Type",
-                        Toast.LENGTH_LONG)
-                        .show();
+                spinnerChoice=null;
                 break;
             case 1:
                 spinnerChoice="5";
@@ -62,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements AdapterView.OnIt
         Boolean areAllFieldsEmpty = ValidationUtil.isEmptyTextField(username)||
                 ValidationUtil.isEmptyTextField(password);
         if(!areAllFieldsEmpty){
-            if(true){//ValidationUtil.isValidPhoneNumber(username)){
+            if(ValidationUtil.isValidPhoneNumber(username)){
                 if(null!=spinnerChoice&&
                         !"".equalsIgnoreCase(spinnerChoice)){
                     RequestParams rp = new RequestParams();
