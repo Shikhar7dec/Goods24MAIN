@@ -3,8 +3,11 @@
     <string name="action_settings">Settings</string>
     <string name="button_reg_user_name">Register as User</string>
     <string name="button_reg_dist_name">Register as Distributor</string>
+    <string name="button_reg_name">Register</string>
     <string name="button_login_name">Login</string>
     <string name="title_activity_register">Register</string>
+    <string name="str_change_password">Change Password</string>
+    <string name="str_logout">Logout</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

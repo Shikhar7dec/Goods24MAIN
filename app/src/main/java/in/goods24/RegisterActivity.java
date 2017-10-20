@@ -38,23 +38,19 @@ public class RegisterActivity extends AppCompatActivity {
         EditText phone = (EditText)findViewById(R.id.regPhone);
         EditText pass = (EditText)findViewById(R.id.regPass);
         EditText rePass= (EditText)findViewById(R.id.regPassRe);
-
-        //Log.d("check","value of fname>>>"+fname.getText().toString());
-
         Boolean areAllFieldsEmpty = ValidationUtil.isEmptyTextField(fname)
                 ||ValidationUtil.isEmptyTextField(lname)
                 ||ValidationUtil.isEmptyTextField(email)
                 ||ValidationUtil.isEmptyTextField(phone)
                 ||ValidationUtil.isEmptyTextField(pass)
                 ||ValidationUtil.isEmptyTextField(rePass);
-        //Log.d("check","value of Boolean areAllFieldsEmpty>>>"+areAllFieldsEmpty);
 
         if(!areAllFieldsEmpty){
             if(ValidationUtil.isValidEmail(email)){
                 if(ValidationUtil.isValidPhoneNumber(phone)){
                     if(ValidationUtil.passwordMatcher(pass,rePass)){
                         Bundle bundle = getIntent().getExtras();
-                        String utype = bundle.getString("utype");
+                        String utype = bundle.getString("userType");
                         RequestParams rp = new RequestParams();
                         rp.add("appId","g24API1");
                         rp.add("pwd","API1g24");
@@ -67,35 +63,23 @@ public class RegisterActivity extends AppCompatActivity {
                         String phpName = "createUser.php";
                         makeRegRestCall(view,rp,phpName);
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(),
-                                "Password doesn't match with Confirm Password",
-                                Toast.LENGTH_LONG)
-                                .show();
-                    }
+                    else
+                        showValidationMsg("Password doesn't match with Confirm Password");
                 }
-                else {
-                    Toast.makeText(getApplicationContext(),"Please enter valid phone number",
-                            Toast.LENGTH_LONG)
-                            .show();
-                }
+                else
+                    showValidationMsg("Please enter valid phone number");
             }
-            else{
-                Toast.makeText(getApplicationContext(),"Please enter valid e-mail",Toast.LENGTH_LONG)
-                        .show();
-            }
-
+            else
+                showValidationMsg("Please enter valid e-mail");
         }
-        else{
-            Toast.makeText(getApplicationContext(),"Please enter all fields",Toast.LENGTH_LONG)
-                    .show();
-        }
-
-
-
-
+        else
+            showValidationMsg("Please enter all fields");
     }
-
+    private void showValidationMsg(String message) {
+        Toast.makeText(getApplicationContext(),message,
+                Toast.LENGTH_LONG)
+                .show();
+    }
     private void makeRegRestCall( final View view, RequestParams rp, String phpName) {
         HttpUtils.post(phpName,rp, new JsonHttpResponseHandler(){
             @Override
