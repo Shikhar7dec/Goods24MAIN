@@ -14,36 +14,36 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
         android:elevation="10dp"
         android:text="@string/button_reg_name"
         android:background="@drawable/botton_design_background"
         tools:layout_editor_absoluteX="248dp"
         tools:layout_editor_absoluteY="29dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignStart="@+id/loginButton" />
 
     <Button
         android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView"
-        android:layout_alignEnd="@+id/imageView"
-        android:layout_alignRight="@+id/imageView"
         android:background="@drawable/botton_design_background"
         android:elevation="10dp"
         android:text="@string/button_login_name"
         tools:layout_editor_absoluteX="248dp"
-        tools:layout_editor_absoluteY="29dp" />
+        tools:layout_editor_absoluteY="29dp"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/regButton"
+        app:srcCompat="@drawable/splash_screen"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="97dp"
-        app:srcCompat="@drawable/splash_screen" />
+        android:layout_marginTop="143dp" />
 </RelativeLayout>

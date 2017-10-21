@@ -1,6 +1,8 @@
 package in.goods24;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -18,6 +20,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 import in.goods24.util.ValidationUtil;
 
@@ -49,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
             if(ValidationUtil.isValidEmail(email)){
                 if(ValidationUtil.isValidPhoneNumber(phone)){
                     if(ValidationUtil.passwordMatcher(pass,rePass)){
-                        Bundle bundle = getIntent().getExtras();
-                        String utype = bundle.getString("userType");
+                        SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
+                        String utype =  sharedpreferences.getString("selectedUserTypeID","");
                         RequestParams rp = new RequestParams();
                         rp.add("appId","g24API1");
                         rp.add("pwd","API1g24");
@@ -88,11 +91,13 @@ public class RegisterActivity extends AppCompatActivity {
                 try{
 
                    String respMsg = (String)res.get("res");
-                    showRegResp(view,respMsg);
+                   int errCode= (Integer)res.getInt("error_code");
+                    showRegResp(view,respMsg,errCode);
 
                 }
                 catch (Exception e){
                     e.printStackTrace();
+                    showValidationMsg("Please check your internet and try again");
                 }
             }
 
@@ -104,18 +109,24 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void showRegResp(View view,String respMessage) {
-        Snackbar snackbar = Snackbar.make(view, respMessage, Snackbar.LENGTH_LONG);
-        snackbar.setAction("Done", new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-        snackbar.setActionTextColor(Color.GREEN);
-        snackbar.show();
+    private void showRegResp(View view,String respMessage, int errCode) {
+        if(0==errCode){
+            Snackbar snackbar = Snackbar.make(view, respMessage, Snackbar.LENGTH_LONG);
+            snackbar.setAction("Done", new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
+            snackbar.setActionTextColor(Color.GREEN);
+            snackbar.show();
+        }
+        else{
+            showValidationMsg(respMessage);
+        }
+
     }
 }
 

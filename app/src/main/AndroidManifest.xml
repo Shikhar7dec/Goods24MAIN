@@ -42,10 +42,27 @@
                 android:value="in.goods24.MainActivity" />
         </activity>
         <activity
-            android:name=".Home"
+            android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.goods24.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ChangePwdActivity"
+            android:label="@string/change_password_screen_title"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.goods24.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.goods24.MainActivity" />

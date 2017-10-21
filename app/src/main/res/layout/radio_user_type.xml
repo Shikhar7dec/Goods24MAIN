@@ -42,7 +42,7 @@
         android:layout_alignParentEnd="true">
 
         <RadioButton
-            android:id="@+id/distributorRadio"
+            android:id="@+id/userRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/distributorAsText"
@@ -52,7 +52,7 @@
             android:onClick="onUtypeRadio" />
 
         <RadioButton
-            android:id="@+id/userRadio"
+            android:id="@+id/distributorRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

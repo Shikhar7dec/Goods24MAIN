@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.goods24.ChangePwdActivity"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/changePwdTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp"
+        android:layout_weight="1"
+        android:text="@string/change_password_screen_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="25sp"
+        tools:text="@string/change_password_screen_title" />
+
+    <EditText
+        android:id="@+id/changePasswordCurrText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:ems="10"
+        android:hint="Current Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/changePwdTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/changePasswordNewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="New Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/changePasswordCurrText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/changePasswordReText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/changePasswordNewText"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Re-Type New Password "
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/saveChangePasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/changePasswordReText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:text="Save" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:text="@string/changePasswordFooter"
+        android:textAlignment="center"
+        android:textSize="12sp" />
+</RelativeLayout>
