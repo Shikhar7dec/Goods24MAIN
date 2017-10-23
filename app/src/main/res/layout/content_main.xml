@@ -46,4 +46,5 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="143dp" />
+    <include layout="@layout/progress_bar_layout" />
 </RelativeLayout>

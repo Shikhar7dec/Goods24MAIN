@@ -68,5 +68,6 @@
         android:background="@android:color/holo_red_light"
         android:onClick="onFinalRegister"
         android:text="Register" />
+    <include layout="@layout/progress_bar_layout" />
 
 </LinearLayout>

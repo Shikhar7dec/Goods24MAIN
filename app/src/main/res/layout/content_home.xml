@@ -46,5 +46,5 @@
         android:layout_below="@+id/userTypeTextView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp" />
-
+    <include layout="@layout/progress_bar_layout" />
 </RelativeLayout>

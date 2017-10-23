@@ -67,6 +67,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.goods24.MainActivity" />
         </activity>
+        <activity
+            android:name=".ViewProfile"
+            android:label="@string/title_activity_view_profile"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.goods24.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

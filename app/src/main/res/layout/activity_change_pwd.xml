@@ -82,4 +82,5 @@
         android:text="@string/changePasswordFooter"
         android:textAlignment="center"
         android:textSize="12sp" />
+    <include layout="@layout/progress_bar_layout" />
 </RelativeLayout>

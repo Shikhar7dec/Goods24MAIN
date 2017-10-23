@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -61,6 +62,8 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
                 rp.add("oldPwd",currPassword.getText().toString());
                 String phpName = "changePwd.php";
                 Log.d("REQ","request is>>>>>"+rp);
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                relLayoutProgress.setVisibility(View.VISIBLE);
                 makeChangePwdRestCall(v,rp,phpName);
 
             }
@@ -100,8 +103,10 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void showChangePwdResp(View v, String respMsg, int errCode) {
-            if(0==errCode){
-                showValidationMsg("Password Changed successfully");
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        relLayoutProgress.setVisibility(View.GONE);
+        if(0==errCode){
+                showValidationMsg(respMsg);
                 sharedPreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor= sharedPreferences.edit();
                 editor.clear();

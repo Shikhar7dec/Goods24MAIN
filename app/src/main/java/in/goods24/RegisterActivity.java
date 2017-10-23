@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -31,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        relLayoutProgress.setVisibility(View.GONE);*/
 
     }
     public void onFinalRegister(View view){
@@ -64,6 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
                         rp.add("mobile",phone.getText().toString());
                         rp.add("password",pass.getText().toString());
                         String phpName = "createUser.php";
+                        Log.d("REQ","Request from app>>>>>"+rp);
+                        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                        relLayoutProgress.setVisibility(View.VISIBLE);
                         makeRegRestCall(view,rp,phpName);
                     }
                     else
@@ -110,18 +116,13 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showRegResp(View view,String respMessage, int errCode) {
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
-            Snackbar snackbar = Snackbar.make(view, respMessage, Snackbar.LENGTH_LONG);
-            snackbar.setAction("Done", new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
-            });
-            snackbar.setActionTextColor(Color.GREEN);
-            snackbar.show();
+            showValidationMsg(respMessage);
+            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
         else{
             showValidationMsg(respMessage);

@@ -31,6 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +89,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements OnClick
                     rp.add("uType",loginUserType);
                     String phpName="resetPwd.php";
                     Log.d("REQ","request is>>>>>"+rp);
+                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                    relLayoutProgress.setVisibility(View.VISIBLE);
                     makeFPRestCall(view,rp,phpName);
                 }
                 else
@@ -102,7 +105,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements OnClick
     }
 
     private void makeFPRestCall(final View view, RequestParams rp, String phpName) {
-        {
+
             HttpUtils.post(phpName,rp, new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject res) {
@@ -126,16 +129,21 @@ public class ForgotPasswordActivity extends AppCompatActivity implements OnClick
                     Log.d("log","Status code is>>"+statusCode+"Response code>>>"+responseString);
                 }
             });
-        }
+
 
 
     }
 
     private void showForgotPwdResp(View view, String respMsg,int errCode) {
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
-            showValidationMsg("Password reset Successful");
+            showValidationMsg(respMsg);
             Intent i = new Intent(this,MainActivity.class);
             startActivity(i);
+        }
+        else{
+            showValidationMsg(respMsg);
         }
 
     }

@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import in.goods24.util.ConstantsUtil;
 
 public class HomeActivity extends AppCompatActivity {
+    private int backButtonCount= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         userTypeTextView.setText(userTypeName);
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,6 +47,13 @@ public class HomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if(id==R.id.submenuViewProfile){
+            Intent i = new Intent(this, ViewProfile.class);
+            startActivity(i);
+        }
+        if(id==R.id.submenuUpdateProfile){
+
+        }
         if (id == R.id.changePasswordOptionsMenu) {
             Intent i = new Intent(this,ChangePwdActivity.class);
             startActivity(i);
@@ -61,5 +71,20 @@ public class HomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(this, "Press the back button once again to close the application.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
+    }
 }

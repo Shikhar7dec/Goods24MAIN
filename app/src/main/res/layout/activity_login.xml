@@ -47,4 +47,5 @@
         android:textColor="@color/colorPrimary"
         android:onClick="onForgotPassword"
         android:textColorLink="@android:color/holo_blue_bright" />
+    <include layout="@layout/progress_bar_layout" />
 </LinearLayout>

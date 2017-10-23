@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 
 import in.goods24.dialog.CustomDialogUserType;
 import in.goods24.util.ConstantsUtil;
@@ -31,11 +32,16 @@ private boolean isRegPressed=false;
         }
         else {
             setContentView(R.layout.activity_main);
+            RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+            relLayoutProgress.setVisibility(View.VISIBLE);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             findViewById(R.id.regButton).setOnClickListener(this);
             findViewById(R.id.loginButton).setOnClickListener(this);
+            relLayoutProgress.setVisibility(View.GONE);
         }
+        /*this.finish();
+        System.exit(0);*/
     }
     @Override
     public void onClick(View v){

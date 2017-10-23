@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -44,7 +45,9 @@ public class LoginActivity extends AppCompatActivity{
                     rp.add("uType",utype);
                     String phpName = "loginUser.php";
                     Log.d("req","Request is>>>"+rp);
-                    makeLoginRestCall(view,rp,phpName);
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                relLayoutProgress.setVisibility(View.VISIBLE);
+                makeLoginRestCall(view,rp,phpName);
             }
             else{
                 showValidationMsg("Please enter your phone number as UserName");
@@ -93,26 +96,21 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private void showLoginResp(View view, String respMsg, final String userID,int errCode) {
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
-            Snackbar snackbar = Snackbar.make(view, respMsg, Snackbar.LENGTH_LONG);
-            snackbar.setAction("Go home", new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.putString("loggedInUserID",userID);
-                    String loginUserTypeID =  sharedpreferences.getString("selectedUserTypeID","");
-                    String loginUser = "5".equalsIgnoreCase(loginUserTypeID)
-                            ?"User":"Distributor";
-                    editor.putString("loginUserTypeName",loginUser);
-                    editor.commit();
-                    startActivity(intent);
-                }
-            });
-            snackbar.setActionTextColor(Color.GREEN);
-            snackbar.show();
+            showValidationMsg(respMsg);
+            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("loggedInUserID",userID);
+            String loginUserTypeID =  sharedpreferences.getString("selectedUserTypeID","");
+            String loginUser = "5".equalsIgnoreCase(loginUserTypeID)
+                    ?"User":"Distributor";
+            editor.putString("loginUserTypeName",loginUser);
+            editor.commit();
+            startActivity(intent);
         }
         else{
             showValidationMsg(respMsg);
