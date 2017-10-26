@@ -15,10 +15,15 @@ import android.widget.Toast;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
+
+import java.util.Map;
+
 import cz.msebera.android.httpclient.Header;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 import in.goods24.util.ValidationUtil;
+
+import static in.goods24.util.ConstantsUtil.USERMAP;
 
 public class LoginActivity extends AppCompatActivity{
     @Override
@@ -45,7 +50,7 @@ public class LoginActivity extends AppCompatActivity{
                     rp.add("uType",utype);
                     String phpName = "loginUser.php";
                     Log.d("req","Request is>>>"+rp);
-                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                 relLayoutProgress.setVisibility(View.VISIBLE);
                 makeLoginRestCall(view,rp,phpName);
             }
@@ -80,6 +85,8 @@ public class LoginActivity extends AppCompatActivity{
                 catch (Exception e){
                     e.printStackTrace();
                     showValidationMsg("Please check your internet and try again");
+                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);
                 }
             }
 
@@ -96,7 +103,7 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private void showLoginResp(View view, String respMsg, final String userID,int errCode) {
-        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
         relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
             showValidationMsg(respMsg);
@@ -106,8 +113,7 @@ public class LoginActivity extends AppCompatActivity{
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("loggedInUserID",userID);
             String loginUserTypeID =  sharedpreferences.getString("selectedUserTypeID","");
-            String loginUser = "5".equalsIgnoreCase(loginUserTypeID)
-                    ?"User":"Distributor";
+            String loginUser = USERMAP.get(loginUserTypeID);
             editor.putString("loginUserTypeName",loginUser);
             editor.commit();
             startActivity(intent);
@@ -117,9 +123,19 @@ public class LoginActivity extends AppCompatActivity{
         }
 
     }
+
+
+
     public void onForgotPassword(View v){
         Intent  i = new Intent(this,ForgotPasswordActivity.class);
         startActivity(i);
     }
-
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(this,MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 }

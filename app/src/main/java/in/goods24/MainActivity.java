@@ -4,15 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
-import in.goods24.dialog.CustomDialogUserType;
+import in.goods24.dialog.CustomDialogUserTypeLogin;
+import in.goods24.dialog.CustomDialogUserTypeReg;
 import in.goods24.util.ConstantsUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -32,7 +33,7 @@ private boolean isRegPressed=false;
         }
         else {
             setContentView(R.layout.activity_main);
-            RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+            RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
             relLayoutProgress.setVisibility(View.VISIBLE);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -48,11 +49,11 @@ private boolean isRegPressed=false;
         switch (v.getId()) {
             case R.id.regButton:
                 isRegPressed=true;
-                showUserTypeDialog();
+                showUserTypeDialogReg();
                 break;
             case R.id.loginButton:
                 isRegPressed=false;
-                showUserTypeDialog();
+                showUserTypeDialogLogin();
                 break;
         }
     }
@@ -92,6 +93,12 @@ private boolean isRegPressed=false;
         else if(id==R.id.distributorRadio){
             utype = "4";
         }
+        else if(id==R.id.runnerRadio){
+            utype = "3";
+        }
+        else if(id==R.id.smUserRadio){
+            utype = "2";
+        }
 
         SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -100,8 +107,14 @@ private boolean isRegPressed=false;
         editor.commit();
         startActivity(i);
     }
-    public void showUserTypeDialog(){
-        CustomDialogUserType customDialog= new CustomDialogUserType();
+    public void showUserTypeDialogReg(){
+        CustomDialogUserTypeReg customDialog= new CustomDialogUserTypeReg();
         customDialog.show(getSupportFragmentManager(), "CustomDialogFragment");
     }
+
+    public void showUserTypeDialogLogin(){
+        CustomDialogUserTypeLogin customDialog= new CustomDialogUserTypeLogin();
+        customDialog.show(getSupportFragmentManager(), "CustomDialogFragment");
+    }
+
 }

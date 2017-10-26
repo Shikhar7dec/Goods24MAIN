@@ -32,9 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
-        relLayoutProgress.setVisibility(View.GONE);*/
-
     }
     public void onFinalRegister(View view){
 
@@ -68,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
                         rp.add("password",pass.getText().toString());
                         String phpName = "createUser.php";
                         Log.d("REQ","Request from app>>>>>"+rp);
-                        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                         relLayoutProgress.setVisibility(View.VISIBLE);
                         makeRegRestCall(view,rp,phpName);
                     }
@@ -104,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
                 catch (Exception e){
                     e.printStackTrace();
                     showValidationMsg("Please check your internet and try again");
+                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);
                 }
             }
 
@@ -116,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void showRegResp(View view,String respMessage, int errCode) {
-        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
         relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
             showValidationMsg(respMessage);

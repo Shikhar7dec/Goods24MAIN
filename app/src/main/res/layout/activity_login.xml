@@ -13,6 +13,16 @@
     android:weightSum="1"
     tools:context="in.goods24.RegisterActivity">
 
+    <TextView
+        android:id="@+id/loginHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/loginUserText"
         android:layout_width="match_parent"

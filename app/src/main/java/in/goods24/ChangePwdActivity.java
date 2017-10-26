@@ -62,7 +62,7 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
                 rp.add("oldPwd",currPassword.getText().toString());
                 String phpName = "changePwd.php";
                 Log.d("REQ","request is>>>>>"+rp);
-                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                 relLayoutProgress.setVisibility(View.VISIBLE);
                 makeChangePwdRestCall(v,rp,phpName);
 
@@ -90,6 +90,8 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
                     catch (Exception e){
                         e.printStackTrace();
                         showValidationMsg("Please check your internet and try again");
+                        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                        relLayoutProgress.setVisibility(View.GONE);
                     }
                 }
 
@@ -103,7 +105,7 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void showChangePwdResp(View v, String respMsg, int errCode) {
-        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
         relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
                 showValidationMsg(respMsg);

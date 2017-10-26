@@ -89,7 +89,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements OnClick
                     rp.add("uType",loginUserType);
                     String phpName="resetPwd.php";
                     Log.d("REQ","request is>>>>>"+rp);
-                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                     relLayoutProgress.setVisibility(View.VISIBLE);
                     makeFPRestCall(view,rp,phpName);
                 }
@@ -120,6 +120,8 @@ public class ForgotPasswordActivity extends AppCompatActivity implements OnClick
                     catch (Exception e){
                         e.printStackTrace();
                         showValidationMsg("Please check your internet and try again");
+                        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                        relLayoutProgress.setVisibility(View.GONE);
                     }
                 }
 
@@ -135,7 +137,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements OnClick
     }
 
     private void showForgotPwdResp(View view, String respMsg,int errCode) {
-        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
         relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
             showValidationMsg(respMsg);

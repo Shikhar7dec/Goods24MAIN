@@ -34,7 +34,7 @@ public class ViewProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
-        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+        RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
         relLayoutProgress.setVisibility(View.VISIBLE);
         fetchProfDetails();
     }
@@ -66,6 +66,8 @@ public class ViewProfile extends AppCompatActivity {
                 catch (Exception e){
                     e.printStackTrace();
                     showValidationMsg("Please check your internet and try again");
+                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);
                     gotoPreviousActivity();
                 }
             }
@@ -109,7 +111,7 @@ public class ViewProfile extends AppCompatActivity {
                 eMailTV.setText(eMail);
                 phoneTV.setText(phone);
                 /*requestWindowFeature(Window.FEATURE_NO_TITLE);*/
-                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarViewProfLayout);
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                 relLayoutProgress.setVisibility(View.GONE);
             }
             else{

@@ -13,6 +13,16 @@
 
     <!-- Login progress -->
 
+    <TextView
+        android:id="@+id/regHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/regFName"
         android:layout_width="match_parent"
