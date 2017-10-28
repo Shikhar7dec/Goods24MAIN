@@ -1,11 +1,8 @@
-package in.goods24;
+package in.goods24.common;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -21,6 +18,9 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import in.goods24.R;
+import in.goods24.common.LoginActivity;
+import in.goods24.common.MainActivity;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 import in.goods24.util.ValidationUtil;
@@ -110,6 +110,9 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString,
                                   Throwable throwable) {
                 Log.d("log","Status code is>>"+statusCode+"Response code>>>"+responseString);
+                showValidationMsg("Some Error occurred please try again");
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                relLayoutProgress.setVisibility(View.GONE);
             }
         });
     }

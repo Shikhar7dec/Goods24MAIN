@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="in.goods24.HomeActivity"
-    tools:showIn="@layout/activity_home">
+    tools:context="in.goods24.home.HomeUserActivity"
+    tools:showIn="@layout/activity_home_user">
 
     <TextView
         android:id="@+id/userTypeTextView"

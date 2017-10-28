@@ -1,10 +1,9 @@
-package in.goods24;
+package in.goods24.common;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,8 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import in.goods24.R;
 import in.goods24.dialog.CustomDialogUserTypeLogin;
 import in.goods24.dialog.CustomDialogUserTypeReg;
+import in.goods24.home.HomeDistributorActivity;
+import in.goods24.home.HomeRunnerActivity;
+import in.goods24.home.HomeSMUserActivity;
+import in.goods24.home.HomeUserActivity;
 import in.goods24.util.ConstantsUtil;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -28,7 +32,19 @@ private boolean isRegPressed=false;
         String loggedInUserID =  sharedpreferences.getString("loggedInUserID","");
         if(!"".equalsIgnoreCase(loginUserTypeID)&&!"".equalsIgnoreCase(loginUserTypeName)
                 &&!"".equalsIgnoreCase(loggedInUserID)){
-            Intent i = new Intent(this,HomeActivity.class);
+            Intent i= null;
+            if("2".equalsIgnoreCase(loginUserTypeID)){
+                i = new Intent(getApplicationContext(),HomeSMUserActivity.class);
+            }
+            else if("3".equalsIgnoreCase(loginUserTypeID)){
+                i = new Intent(getApplicationContext(),HomeRunnerActivity.class);
+            }
+            else if("4".equalsIgnoreCase(loginUserTypeID)){
+                i = new Intent(getApplicationContext(), HomeDistributorActivity.class);
+            }
+            else if("5".equalsIgnoreCase(loginUserTypeID)){
+                i = new Intent(getApplicationContext(),HomeUserActivity.class);
+            }
             startActivity(i);
         }
         else {
@@ -68,7 +84,7 @@ private boolean isRegPressed=false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the HomeActivity/Up button, so long
+        // automatically handle clicks on the HomeUserActivity/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

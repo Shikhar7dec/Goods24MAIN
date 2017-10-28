@@ -5,101 +5,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="in.goods24.ViewProfile"
+    tools:context="in.goods24.common.ViewProfile"
     tools:showIn="@layout/activity_view_profile"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="230dp"
-        android:layout_height="150dp"
+
+    <TableLayout
+        android:id="@+id/titleViewTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="59dp"
+        android:layout_marginStart="59dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="80dp"
-        android:layout_toRightOf="@+id/relativeLayout2"
-        tools:layout_editor_absoluteX="205dp"
-        tools:layout_editor_absoluteY="69dp">
-
-        <TextView
-            android:id="@+id/viewProfPhoneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/viewProfeMailText"
-            android:layout_alignStart="@+id/viewProfeMailText"
-            android:layout_below="@+id/viewProfeMailText"
-            android:layout_marginTop="31dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <TextView
-            android:id="@+id/viewProfNameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <TextView
-            android:id="@+id/viewProfeMailText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/viewProfNameText"
-            android:layout_alignStart="@+id/viewProfNameText"
-            android:layout_below="@+id/viewProfNameText"
-            android:layout_marginTop="25dp"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="129dp"
-        android:layout_height="150dp"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="69dp"
-        android:id="@+id/relativeLayout2"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_alignBaseline="@+id/relativeLayout"
-        android:layout_alignBottom="@+id/relativeLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="43dp">
 
-        <TextView
-            android:id="@+id/viewProfPhoneTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="115dp"
-            android:layout_below="@+id/viewProfeMailTitle"
-            android:layout_alignLeft="@+id/viewProfeMailTitle"
-            android:layout_alignStart="@+id/viewProfeMailTitle"
-            android:layout_marginTop="33dp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/viewProfeMailTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/viewProfNameTitle"
-            android:layout_alignStart="@+id/viewProfNameTitle"
-            android:layout_below="@+id/viewProfNameTitle"
-            android:layout_marginTop="24dp"
-            android:text="Email"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="166dp" />
+            <TextView
+                android:id="@+id/viewProfNameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/viewProfNameTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="Name"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="60dp" />
-    </RelativeLayout>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfeMailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="E-mail" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfPhoneTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile No" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfAddressTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/contentViewtableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/titleViewTable"
+        android:layout_centerHorizontal="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfeMailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfPhoneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/viewProfAddText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+    </TableLayout>
     <include layout="@layout/progress_bar_layout" />
 </RelativeLayout>

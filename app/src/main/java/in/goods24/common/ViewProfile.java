@@ -1,17 +1,12 @@
-package in.goods24;
+package in.goods24.common;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +17,11 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import in.goods24.R;
+import in.goods24.home.HomeDistributorActivity;
+import in.goods24.home.HomeRunnerActivity;
+import in.goods24.home.HomeSMUserActivity;
+import in.goods24.home.HomeUserActivity;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 
@@ -76,12 +76,29 @@ public class ViewProfile extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString,
                                   Throwable throwable) {
                 Log.d("log","Status code is>>"+statusCode+"Response code>>>"+responseString);
+                showValidationMsg("Some Error occurred please try again");
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                relLayoutProgress.setVisibility(View.GONE);
             }
         });
     }
 
     private void gotoPreviousActivity() {
-        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        Intent intent=null;
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
+        String userType =sharedPreferences.getString("selectedUserTypeID","");
+        if("2".equalsIgnoreCase(userType)){
+            intent = new Intent(getApplicationContext(),HomeSMUserActivity.class);
+        }
+        else if("3".equalsIgnoreCase(userType)){
+            intent = new Intent(getApplicationContext(),HomeRunnerActivity.class);
+        }
+        else if("4".equalsIgnoreCase(userType)){
+            intent = new Intent(getApplicationContext(), HomeDistributorActivity.class);
+        }
+        else if("5".equalsIgnoreCase(userType)){
+            intent = new Intent(getApplicationContext(),HomeUserActivity.class);
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -100,16 +117,26 @@ public class ViewProfile extends AppCompatActivity {
                         +(String)res.getString("last_name");
                 String eMailRes = (String)res.getString("email_id");
                 String phoneRes = (String)res.getString("mobile_no");
+                String addressRes = (String)res.getString("address_line_1")+"\n"
+                        +(String)res.getString("address_line_2")+"\n"
+                        +(String)res.getString("address_line_3")+"\n"
+                        +(String)res.getString("city")+"\n"
+                        +(String)res.getString("state")+"\n"
+                        +(String)res.getString("pincode")+"\n"
+                        +(String)res.getString("country")+"\n";
+
                 name=nameRes;
                 eMail=eMailRes;
                 phone=phoneRes;
                 TextView nameTV = (TextView)findViewById(R.id.viewProfNameText);
                 TextView eMailTV = (TextView)findViewById(R.id.viewProfeMailText);
                 TextView phoneTV = (TextView)findViewById(R.id.viewProfPhoneText);
-                Log.d("VALS","Values are>>>"+name+">>>"+eMail+">>>"+phone);
+                TextView addressTV = (TextView)findViewById(R.id.viewProfAddText);
+                Log.d("VAL","Values are>>>"+name+">>>"+eMail+">>>"+phone);
                 nameTV.setText(name);
                 eMailTV.setText(eMail);
                 phoneTV.setText(phone);
+                addressTV.setText(addressRes);
                 /*requestWindowFeature(Window.FEATURE_NO_TITLE);*/
                 RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                 relLayoutProgress.setVisibility(View.GONE);

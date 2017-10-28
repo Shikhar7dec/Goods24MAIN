@@ -1,4 +1,4 @@
-package in.goods24;
+package in.goods24.common;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import in.goods24.R;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 import in.goods24.util.ValidationUtil;
@@ -99,6 +100,9 @@ public class ChangePwdActivity extends AppCompatActivity implements View.OnClick
                 public void onFailure(int statusCode, Header[] headers, String responseString,
                                       Throwable throwable) {
                     Log.d("log","Status code is>>"+statusCode+"Response code>>>"+responseString);
+                    showValidationMsg("Some Error occurred please try again");
+                    RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);
                 }
             });
         }

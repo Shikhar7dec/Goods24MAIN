@@ -1,11 +1,9 @@
-package in.goods24;
+package in.goods24.common;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +14,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
-import java.util.Map;
-
 import cz.msebera.android.httpclient.Header;
+import in.goods24.R;
+import in.goods24.home.HomeUserActivity;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 import in.goods24.util.ValidationUtil;
@@ -94,10 +92,9 @@ public class LoginActivity extends AppCompatActivity{
             public void onFailure(int statusCode, Header[] headers, String responseString,
                                   Throwable throwable) {
                 Log.d("log","Status code is>>"+statusCode+"Response code>>>"+responseString);
-                Toast.makeText(getApplicationContext(),
-                        "Connection Error!!!",
-                        Toast.LENGTH_LONG)
-                        .show();
+                showValidationMsg("Some Error occurred please try again");
+                RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                relLayoutProgress.setVisibility(View.GONE);
             }
         });
     }
@@ -107,12 +104,24 @@ public class LoginActivity extends AppCompatActivity{
         relLayoutProgress.setVisibility(View.GONE);
         if(0==errCode){
             showValidationMsg(respMsg);
-            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putString("loggedInUserID",userID);
             String loginUserTypeID =  sharedpreferences.getString("selectedUserTypeID","");
+            Intent intent=null;
+            if("2".equalsIgnoreCase(loginUserTypeID)){
+                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+            }
+            else if("3".equalsIgnoreCase(loginUserTypeID)){
+                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+            }
+            else if("4".equalsIgnoreCase(loginUserTypeID)){
+                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+            }
+            else if("5".equalsIgnoreCase(loginUserTypeID)){
+                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             String loginUser = USERMAP.get(loginUserTypeID);
             editor.putString("loginUserTypeName",loginUser);
             editor.commit();
