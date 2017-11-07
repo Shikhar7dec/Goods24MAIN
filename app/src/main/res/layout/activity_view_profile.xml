@@ -21,5 +21,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_view_profile" />
+    <include layout="@layout/progress_bar_layout" />
 
 </android.support.design.widget.CoordinatorLayout>

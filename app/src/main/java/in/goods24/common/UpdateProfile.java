@@ -64,6 +64,7 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
         findViewById(R.id.updateProfButton).setOnClickListener(this);
+        findViewById(R.id.resetProfButton).setOnClickListener(this);
         fetchAndSetAllFields();
     }
     @Override
@@ -71,6 +72,10 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.updateProfButton:
                 onUpdateProfButton(v);
+                break;
+            case R.id.resetProfButton:
+                Intent i = new Intent(this,UpdateProfile.class);
+                startActivity(i);
                 break;
         }
     }
@@ -86,7 +91,6 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
         EditText cityTF = (EditText)findViewById(R.id.updateCityEditText);
         EditText stateTF = (EditText)findViewById(R.id.updateStateText);
         EditText pincodeTF = (EditText)findViewById(R.id.updatePincodeEditText);
-        EditText countryTF = (EditText)findViewById(R.id.updateCountryEditText);
         boolean areAllFieldsEmpty = ValidationUtil.isEmptyTextField(fNameTF)
                 ||ValidationUtil.isEmptyTextField(lNameTF)
                 ||ValidationUtil.isEmptyTextField(eMailTF)
@@ -96,8 +100,7 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
                 ||ValidationUtil.isEmptyTextField(add3TF)
                 ||ValidationUtil.isEmptyTextField(cityTF)
                 ||ValidationUtil.isEmptyTextField(stateTF)
-                ||ValidationUtil.isEmptyTextField(pincodeTF)
-                ||ValidationUtil.isEmptyTextField(countryTF);
+                ||ValidationUtil.isEmptyTextField(pincodeTF);
         SharedPreferences sharedPreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
         String loggedInUserID =sharedPreferences.getString("loggedInUserID","");
         String userType =sharedPreferences.getString("selectedUserTypeID","");
@@ -111,13 +114,12 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
             rp.add("lname",lNameTF.getText().toString());
             rp.add("email",eMailTF.getText().toString());
             rp.add("mobile_no",phoneTF.getText().toString());
-            rp.add("add1",add1TF.getText().toString());
-            rp.add("add2",add2TF.getText().toString());
-            rp.add("add3",add3TF.getText().toString());
+            rp.add("address_line_1",add1TF.getText().toString());
+            rp.add("address_line_2",add2TF.getText().toString());
+            rp.add("address_line_3",add3TF.getText().toString());
             rp.add("city",cityTF.getText().toString());
             rp.add("state",stateTF.getText().toString());
             rp.add("pincode",pincodeTF.getText().toString());
-            rp.add("country",countryTF.getText().toString());
             String phpName = "updateProfileInfo.php";
             Log.d("REQ","request is>>>>>"+rp);
             RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
@@ -255,7 +257,6 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
                 String city = (String)res.getString("city");
                 String state = (String)res.getString("state");
                 String pincode = (String)res.getString("pincode");
-                String country = (String)res.getString("country");
 
                 EditText fNameEditText = (EditText)findViewById(R.id.updateFNameEditText);
                 EditText lNameEditText = (EditText)findViewById(R.id.updateLNameEditText);
@@ -267,7 +268,7 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
                 EditText cityEditText = (EditText)findViewById(R.id.updateCityEditText);
                 EditText stateEditText = (EditText)findViewById(R.id.updateStateText);
                 EditText pincodeEditText = (EditText)findViewById(R.id.updatePincodeEditText);
-                EditText countryEditText = (EditText)findViewById(R.id.updateCountryEditText);
+
 
                 Log.d("VAL","Values are>>>"+fName+">>>"+eMail+">>>"+add1);
                 fNameEditText.setText(fName);
@@ -280,7 +281,6 @@ public class UpdateProfile extends AppCompatActivity implements View.OnClickList
                 cityEditText.setText(city);
                 stateEditText.setText(state);
                 pincodeEditText.setText(pincode);
-                countryEditText.setText(country);
                 RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
                 relLayoutProgress.setVisibility(View.GONE);
             }

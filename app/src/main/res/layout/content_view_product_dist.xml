@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="in.goods24.distributor.ViewProductDistActivity"
+    tools:showIn="@layout/activity_view_product_dist">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TableLayout
+                android:id="@+id/viewProdTable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/prodViewImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="82dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/productDesHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Product Description"
+                        android:textSize="15sp"
+                        android:layout_margin="10dp"/>
+
+                    <TextView
+                        android:id="@+id/productDesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:layout_margin="10dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/productRateHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Product Rate"
+                        android:textSize="15sp"
+                        android:layout_margin="10dp"/>
+
+                    <TextView
+                        android:id="@+id/productRateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:layout_margin="10dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/productDiscHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Discount"
+                        android:textSize="15sp"
+                        android:layout_margin="10dp"/>
+
+                    <TextView
+                        android:id="@+id/productDiscText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:layout_margin="10dp"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/productQuantHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="Product Quantity"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/productQuantText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:layout_margin="10dp"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp">
+
+                    <TextView
+                        android:id="@+id/productApprovalHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="Approval Status"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/productApprovalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="15sp"
+                        android:gravity="center"
+                        android:layout_margin="10dp"/>
+                </TableRow>
+            </TableLayout>
+
+            <ImageView
+                android:id="@+id/prodViewImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/prodNameHeader"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="46dp" />
+
+            <TextView
+                android:id="@+id/prodNameHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="54dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

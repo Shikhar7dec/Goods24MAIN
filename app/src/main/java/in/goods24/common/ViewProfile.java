@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -34,11 +36,19 @@ public class ViewProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
         relLayoutProgress.setVisibility(View.VISIBLE);
         fetchProfDetails();
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     private void fetchProfDetails() {
         SharedPreferences sharedPreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
         String loggedInUserID =sharedPreferences.getString("loggedInUserID","");
@@ -122,8 +132,7 @@ public class ViewProfile extends AppCompatActivity {
                         +(String)res.getString("address_line_3")+"\n"
                         +(String)res.getString("city")+"\n"
                         +(String)res.getString("state")+"\n"
-                        +(String)res.getString("pincode")+"\n"
-                        +(String)res.getString("country")+"\n";
+                        +(String)res.getString("pincode")+"\n";
 
                 name=nameRes;
                 eMail=eMailRes;

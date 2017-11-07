@@ -16,6 +16,9 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import in.goods24.R;
+import in.goods24.home.HomeDistributorActivity;
+import in.goods24.home.HomeRunnerActivity;
+import in.goods24.home.HomeSMUserActivity;
 import in.goods24.home.HomeUserActivity;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
@@ -34,7 +37,7 @@ public class LoginActivity extends AppCompatActivity{
     public void onLogin(View view){
         EditText username= (EditText)findViewById(R.id.loginUserText);
         EditText password= (EditText)findViewById(R.id.loginPasswordText);
-        Boolean areAllFieldsEmpty = ValidationUtil.isEmptyTextField(username)||
+        boolean areAllFieldsEmpty = ValidationUtil.isEmptyTextField(username)||
                 ValidationUtil.isEmptyTextField(password);
         if(!areAllFieldsEmpty){
             if(ValidationUtil.isValidPhoneNumber(username)){
@@ -110,13 +113,13 @@ public class LoginActivity extends AppCompatActivity{
             String loginUserTypeID =  sharedpreferences.getString("selectedUserTypeID","");
             Intent intent=null;
             if("2".equalsIgnoreCase(loginUserTypeID)){
-                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+                intent= new Intent(getApplicationContext(), HomeSMUserActivity.class);
             }
             else if("3".equalsIgnoreCase(loginUserTypeID)){
-                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+                intent= new Intent(getApplicationContext(), HomeRunnerActivity.class);
             }
             else if("4".equalsIgnoreCase(loginUserTypeID)){
-                intent= new Intent(getApplicationContext(),HomeUserActivity.class);
+                intent= new Intent(getApplicationContext(),HomeDistributorActivity.class);
             }
             else if("5".equalsIgnoreCase(loginUserTypeID)){
                 intent= new Intent(getApplicationContext(),HomeUserActivity.class);
