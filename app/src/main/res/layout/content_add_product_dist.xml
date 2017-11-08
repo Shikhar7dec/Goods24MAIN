@@ -27,17 +27,27 @@
                 android:layout_gravity="center_horizontal"
                 android:adjustViewBounds="true" />
 
-            <Button
-                android:id="@+id/selectImageButtonAdd"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Select Image" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginBottom="30dp">
+
+                <Button
+                    android:id="@+id/selectImageButtonAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="0dp"
+                    android:text="Select Image"
+                    android:background="@drawable/button_design_background"
+                    android:textColor="#FFFFFF"/>
+            </RelativeLayout>
 
             <Spinner
                 android:id="@+id/prodCategorySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"/>
 
             <EditText
                 android:id="@+id/prodNameAddText"
@@ -78,14 +88,21 @@
                 android:ems="10"
                 android:hint="Product Discount"
                 android:inputType="numberDecimal" />
-
-            <Button
-                android:id="@+id/addItemButton"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Add Item"
-                android:layout_marginBottom="15dp"/>
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/addItemButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/button_design_background"
+                    android:text="Add Item"
+                    android:textColor="#FFFFFF"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

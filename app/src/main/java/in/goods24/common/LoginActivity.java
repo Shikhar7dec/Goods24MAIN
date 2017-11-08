@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import in.goods24.R;
+import in.goods24.dialog.CustomDialogUserTypeReg;
 import in.goods24.home.HomeDistributorActivity;
 import in.goods24.home.HomeRunnerActivity;
 import in.goods24.home.HomeSMUserActivity;
@@ -149,5 +150,27 @@ public class LoginActivity extends AppCompatActivity{
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+    }
+    public void showUserTypeDialogReg(View v){
+            CustomDialogUserTypeReg customDialog= new CustomDialogUserTypeReg();
+            customDialog.show(getSupportFragmentManager(), "CustomDialogFragment");
+    }
+    public void onUtypeRadio(View v){
+        Intent i= new Intent(this,RegisterActivity.class);
+        int id = v.getId();
+        String utype = "";
+        if(id==R.id.userRadio){
+            utype = "5";
+        }
+        else if(id==R.id.distributorRadio){
+            utype = "4";
+        }
+
+        SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.putString("selectedUserTypeID",utype);
+        editor.commit();
+        startActivity(i);
     }
 }

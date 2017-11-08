@@ -13,49 +13,82 @@
     android:weightSum="1"
     tools:context="in.goods24.common.RegisterActivity">
 
-    <TextView
-        android:id="@+id/loginHeader"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/loginUserText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="phone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/loginPasswordText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+            <TextView
+                android:id="@+id/loginHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="Login"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onLogin"
-        android:shadowColor="@android:color/holo_orange_light"
-        android:text="Login"
-        android:textColor="@android:color/holo_orange_dark" />
+            <EditText
+                android:id="@+id/loginUserText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="Username"
+                android:inputType="phone" />
 
-    <TextView
-        android:id="@+id/forgotPasswordText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/str_forgot_password_text"
-        android:textColor="@color/colorPrimary"
-        android:onClick="onForgotPassword"
-        android:textColorLink="@android:color/holo_blue_bright" />
+            <EditText
+                android:id="@+id/loginPasswordText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/button_design_background"
+                android:fontFamily="aerial"
+                android:onClick="onLogin"
+                android:shadowColor="@color/colorPrimary"
+                android:text="Login"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/forgotPasswordText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:onClick="onForgotPassword"
+                android:text="@string/str_forgot_password_text"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@android:color/holo_blue_bright"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/registerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:onClick="showUserTypeDialogReg"
+                android:text="@string/button_reg_name"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@android:color/holo_blue_bright"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+
     <include layout="@layout/progress_bar_layout" />
 </LinearLayout>

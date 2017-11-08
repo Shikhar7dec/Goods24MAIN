@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -53,6 +54,12 @@ public class HomeDistributorActivity extends AppCompatActivity
         findViewById(R.id.buttonViewProduct).setOnClickListener(this);
         findViewById(R.id.buttonUpdateProduct).setOnClickListener(this);
         findViewById(R.id.buttonDeleteProduct).setOnClickListener(this);
+
+        LinearLayout innerLay = (LinearLayout)findViewById(R.id.innerLay);
+        int width = innerLay.getWidth();
+        int height = innerLay.getHeight();
+        Log.d("TEST","height and widhth are>>>"+height+">>"+width);
+
 
     }
 

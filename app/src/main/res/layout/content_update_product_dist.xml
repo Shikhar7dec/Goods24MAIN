@@ -160,7 +160,9 @@
                         android:layout_height="wrap_content"
                         android:text="Update"
                         android:layout_margin="10dp"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:background="@drawable/button_design_background"
+                        android:textColor="#FFFFFF"/>
 
                     <Button
                         android:id="@+id/resetBtn"
@@ -168,7 +170,9 @@
                         android:layout_height="wrap_content"
                         android:text="Reset"
                         android:layout_margin="10dp"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:background="@drawable/button_design_background"
+                        android:textColor="#FFFFFF"/>
                 </TableRow>
             </TableLayout>
 
@@ -183,10 +187,12 @@
                 android:id="@+id/changeImageUpdateBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Change Image"
                 android:layout_below="@+id/prodUpdateImage"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="29dp"
-                android:text="Change Image" />
+                android:background="@drawable/button_design_background"
+                android:textColor="#FFFFFF"/>
 
         </RelativeLayout>
     </ScrollView>

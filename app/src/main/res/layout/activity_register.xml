@@ -13,71 +13,100 @@
 
     <!-- Login progress -->
 
-    <TextView
-        android:id="@+id/regHeader"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/regFName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="First Name"
-        android:inputType="textPersonName" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/regLName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Last Name"
-        android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/regHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="aerial"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/regEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="email"
-        android:inputType="textEmailAddress" />
+            <EditText
+                android:id="@+id/regFName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="First Name"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/regPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Mobile Number"
-        android:inputType="phone" />
+            <EditText
+                android:id="@+id/regLName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="Last Name"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/regPass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/regEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="email"
+                android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/regPassRe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/regPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="Mobile Number"
+                android:inputType="phone" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_light"
-        android:onClick="onFinalRegister"
-        android:text="Register" />
+            <EditText
+                android:id="@+id/regPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/regPassRe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:fontFamily="aerial"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:background="@drawable/button_design_background"
+                android:fontFamily="aerial"
+                android:onClick="onFinalRegister"
+                android:text="Register"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+
     <include layout="@layout/progress_bar_layout" />
 
 </LinearLayout>

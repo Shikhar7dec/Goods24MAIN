@@ -16,27 +16,29 @@
         android:layout_height="wrap_content"
         android:elevation="10dp"
         android:text="@string/button_reg_name"
-        android:background="@drawable/botton_design_background"
+        android:background="@drawable/button_design_background"
         tools:layout_editor_absoluteX="248dp"
         tools:layout_editor_absoluteY="29dp"
         android:layout_marginTop="28dp"
         android:layout_below="@+id/loginButton"
         android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignStart="@+id/loginButton" />
+        android:layout_alignStart="@+id/loginButton"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/botton_design_background"
+        android:background="@drawable/button_design_background"
         android:elevation="10dp"
         android:text="@string/button_login_name"
         tools:layout_editor_absoluteX="248dp"
         tools:layout_editor_absoluteY="29dp"
         android:layout_marginTop="70dp"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/imageView"

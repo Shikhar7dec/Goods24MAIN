@@ -53,8 +53,8 @@ private boolean isRegPressed=false;
             relLayoutProgress.setVisibility(View.VISIBLE);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            findViewById(R.id.regButton).setOnClickListener(this);
-            findViewById(R.id.loginButton).setOnClickListener(this);
+            /*findViewById(R.id.regButton).setOnClickListener(this);
+            findViewById(R.id.loginButton).setOnClickListener(this);*/
             relLayoutProgress.setVisibility(View.GONE);
         }
         /*this.finish();
@@ -63,14 +63,14 @@ private boolean isRegPressed=false;
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.regButton:
+            /*case R.id.regButton:
                 isRegPressed=true;
                 showUserTypeDialogReg();
-                break;
-            case R.id.loginButton:
+                break;*/
+            /*case R.id.loginButton:
                 isRegPressed=false;
                 showUserTypeDialogLogin();
-                break;
+                break;*/
         }
     }
 
@@ -89,18 +89,16 @@ private boolean isRegPressed=false;
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_login) {
+            isRegPressed=false;
+            showUserTypeDialogLogin();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void onUtypeRadio(View v){
-        Intent i=null;
-        if(isRegPressed)
-            i = new Intent(this,RegisterActivity.class);
-        else
-            i = new Intent(this,LoginActivity.class);
+        Intent i=new Intent(this,LoginActivity.class);
         int id = v.getId();
         String utype = "";
         if(id==R.id.userRadio){
@@ -123,10 +121,10 @@ private boolean isRegPressed=false;
         editor.commit();
         startActivity(i);
     }
-    public void showUserTypeDialogReg(){
+    /*public void showUserTypeDialogReg(){
         CustomDialogUserTypeReg customDialog= new CustomDialogUserTypeReg();
         customDialog.show(getSupportFragmentManager(), "CustomDialogFragment");
-    }
+    }*/
 
     public void showUserTypeDialogLogin(){
         CustomDialogUserTypeLogin customDialog= new CustomDialogUserTypeLogin();
