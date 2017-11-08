@@ -2,6 +2,6 @@
 <resources>
     <color name="colorPrimary">#fda33c</color>
     <color name="colorPrimaryDark">#f79424</color>
-    <color name="colorAccent">#fda33c</color>
+    <color name="colorAccent">#f79424</color>
     <color name="colorText">#042000</color>
 </resources>
