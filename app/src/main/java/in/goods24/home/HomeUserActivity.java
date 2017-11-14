@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -43,7 +44,6 @@ public class HomeUserActivity extends AppCompatActivity {
         fetchProductCatTypes();
 
 
-
         /*SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
         String userTypeName =  sharedpreferences.getString("loginUserTypeName","");
         TextView userTypeTextView= (TextView)findViewById(R.id.userTypeTextView);
@@ -53,12 +53,14 @@ public class HomeUserActivity extends AppCompatActivity {
     private void setTabs() {
         TableRow tabs = (TableRow)findViewById(R.id.upperMenuBarRow);
         for(int i=0;i<prodCatTypeArr.length;i++){
-            Button element = new Button(this);
+            //Button element = new Button(this);
+            TextView element = new TextView(this);
             element.setText(prodCatTypeArr[i]);
             element.setBackgroundResource(R.drawable.button_design_background);
             element.setTextSize(10);
             element.setTextColor(Color.WHITE);
             element.setId(100*(Integer.parseInt(prodCatTypeIDArr[i])+1));
+
             tabs.addView(element);
         }
 
