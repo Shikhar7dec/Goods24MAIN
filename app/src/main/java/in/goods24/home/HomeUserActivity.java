@@ -60,7 +60,6 @@ public class HomeUserActivity extends AppCompatActivity {
             element.setTextSize(10);
             element.setTextColor(Color.WHITE);
             element.setId(100*(Integer.parseInt(prodCatTypeIDArr[i])+1));
-
             tabs.addView(element);
         }
 
