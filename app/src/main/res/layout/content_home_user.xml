@@ -34,7 +34,6 @@
         android:layout_marginTop="20dp">
 
         <!--
-
         <TextView
             android:id="@+id/welcomeTextView"
             android:layout_width="match_parent"
@@ -60,7 +59,7 @@
             tools:layout_editor_absoluteX="75dp"
             tools:layout_editor_absoluteY="214dp" />
 
-            -->
+        -->
         <TextView
             android:id="@+id/userTypeTextView"
             android:layout_width="match_parent"
