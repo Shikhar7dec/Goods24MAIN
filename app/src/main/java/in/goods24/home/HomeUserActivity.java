@@ -10,9 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,7 +31,7 @@ import in.goods24.common.ViewProfile;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
 
-public class HomeUserActivity extends AppCompatActivity {
+public class HomeUserActivity extends AppCompatActivity implements View.OnClickListener{
     private int backButtonCount= 0;
     private String[] prodCatTypeArr;
     private String[] prodCatTypeIDArr;
@@ -41,29 +43,41 @@ public class HomeUserActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
         fetchProductCatTypes();
-
-
-
         /*SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
         String userTypeName =  sharedpreferences.getString("loginUserTypeName","");
         TextView userTypeTextView= (TextView)findViewById(R.id.userTypeTextView);
         userTypeTextView.setText(userTypeName);*/
     }
 
+    @Override
+    public void onClick(View v){
+        for(int itr=0;itr<prodCatTypeIDArr.length;itr++){
+            if(v.getId()==Integer.parseInt(prodCatTypeIDArr[itr])){
+                showValidationMsg("You have selected>>"+prodCatTypeArr[itr]);
+            }
+        }
+
+    }
     private void setTabs() {
         TableRow tabs = (TableRow)findViewById(R.id.upperMenuBarRow);
         for(int i=0;i<prodCatTypeArr.length;i++){
-            Button element = new Button(this);
+            //Button element = new Button(this);
+            TextView element = new TextView(this);
             element.setText(prodCatTypeArr[i]);
             element.setBackgroundResource(R.drawable.button_design_background);
             element.setTextSize(10);
             element.setTextColor(Color.WHITE);
-            element.setId(100*(Integer.parseInt(prodCatTypeIDArr[i])+1));
+            element.setId(Integer.parseInt(prodCatTypeIDArr[i]));
             tabs.addView(element);
         }
-
+            makeCategoryClickable();
     }
 
+    private void makeCategoryClickable() {
+        for(String catID:prodCatTypeIDArr){
+            findViewById(Integer.parseInt(catID)).setOnClickListener(this);
+        }
+    }
     private void fetchProductCatTypes() {
         RequestParams requestParams =new RequestParams();
         requestParams.add("appId", "g24API7");

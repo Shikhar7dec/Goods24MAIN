@@ -11,7 +11,8 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp"
+        android:scrollbars="none">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -31,6 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp">
+
+        <!--
 
         <TextView
             android:id="@+id/welcomeTextView"
@@ -57,6 +60,7 @@
             tools:layout_editor_absoluteX="75dp"
             tools:layout_editor_absoluteY="214dp" />
 
+            -->
         <TextView
             android:id="@+id/userTypeTextView"
             android:layout_width="match_parent"
