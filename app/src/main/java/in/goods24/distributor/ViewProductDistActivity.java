@@ -105,7 +105,6 @@ public class ViewProductDistActivity extends AppCompatActivity {
             Runnable myRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    //Code that uses AsyncHttpClient in your case ConsultaCaract()
                     makeViewProdRestCall(rp,phpName);
                 }
             };

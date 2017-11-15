@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TabHost;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,7 +24,10 @@ import android.widget.Toast;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 import in.goods24.common.ChangePwdActivity;
@@ -28,10 +35,14 @@ import in.goods24.common.MainActivity;
 import in.goods24.R;
 import in.goods24.common.UpdateProfile;
 import in.goods24.common.ViewProfile;
+import in.goods24.pojo.ProductPOJO;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
+import in.goods24.util.ProductsGridAdapter;
 
 public class HomeUserActivity extends AppCompatActivity implements View.OnClickListener{
+    private RequestParams rp;
+    private String phpName;
     private int backButtonCount= 0;
     private String[] prodCatTypeArr;
     private String[] prodCatTypeIDArr;
@@ -71,6 +82,18 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
             tabs.addView(element);
         }
             makeCategoryClickable();
+            fetchProductsByCategory(prodCatTypeIDArr[0]);
+    }
+
+    private void fetchProductsByCategory(String catID) {
+        rp =new RequestParams();
+        rp.add("appId", "g24API7");
+        rp.add("pwd", "API7g24");
+        rp.add("oprn","getAllProductsByCategory");
+        rp.add("category_id",catID);
+        phpName = "manageProducts.php";
+        Log.d("REQ","Request parameter are>>>>"+rp+">>"+phpName);
+        new FetchProductsHelper().execute();
     }
 
     private void makeCategoryClickable() {
@@ -195,6 +218,99 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
         {
             Toast.makeText(this, "Press the back button once again to close the application.", Toast.LENGTH_SHORT).show();
             backButtonCount++;
+        }
+    }
+    private class FetchProductsHelper extends AsyncTask<String,String,String> {
+        ArrayList<ProductPOJO> prodList=null;
+        int errCode=1;
+        String respMsg;
+        @Override
+        protected void onPreExecute() {
+            Log.d("TODO","preExecuteTask"+rp+">>>"+phpName);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... progress) {
+        }
+        @Override
+        protected String doInBackground(String... args) {
+            Handler mainHandler = new Handler(Looper.getMainLooper());
+            Runnable myRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    makeViewProductsRestCall(rp,phpName);
+                }
+            };
+            mainHandler.post(myRunnable);
+
+            return null;
+        }
+        private void makeViewProductsRestCall(RequestParams rp, String phpName) {
+
+
+            HttpUtils.post(phpName, rp, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject res) {
+                    Log.d("res", "---------------response from host>>> " + res + "Status is" + statusCode);
+                    try {
+
+                        respMsg = (String) res.getString("res");
+                        errCode = (Integer) res.getInt("error_code");
+                        Log.d("res", "Response message is>>>>" + respMsg);
+                        performingOperationAfterFetching(respMsg,errCode,res);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showValidationMsg("Please check your internet and try again");
+                        /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                        relLayoutProgress.setVisibility(View.GONE);*/
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString,
+                                      Throwable throwable) {
+                    Log.d("log", "Status code is>>" + statusCode + "Response code>>>" + responseString);
+                    showValidationMsg("Some Error occurred please try again");
+                    /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);*/
+                }
+            });
+
+
+        }
+
+        private void performingOperationAfterFetching(String respMsg, int errCode, JSONObject res) {
+            if(0==errCode){
+                try {
+                    JSONArray productsJSONArr = res.getJSONArray("arr");
+                    prodList = new ArrayList<ProductPOJO>();
+                    ProductPOJO productObj=null;
+                    JSONObject jsonObject = null;
+                    for(int itr=0;itr<productsJSONArr.length();itr++){
+                        productObj=new ProductPOJO();
+                        jsonObject= (JSONObject)productsJSONArr.get(itr);
+                        productObj.setUserID(jsonObject.getString("user_id"));
+                        productObj.setProductID(jsonObject.getString("product_id"));
+                        productObj.setProductName(jsonObject.getString("product_name"));
+                        productObj.setProductDesc(jsonObject.getString("product_desc"));
+                        productObj.setProductQuantity(jsonObject.getString("product_quantity"));
+                        productObj.setProductRate(jsonObject.getString("product_rate"));
+                        productObj.setProductDiscount(jsonObject.getString("product_discount"));
+                        productObj.setProductImage(jsonObject.getString("product_image"));
+                        prodList.add(productObj);
+                    }
+                    /*for(ProductPOJO product:prodList){
+                        Log.d("DEB","Values of Products"+product.toString());
+                    }*/
+                    GridView gridView = (GridView) findViewById(R.id.gridViewProducts);
+                    gridView.setAdapter(new ProductsGridAdapter(HomeUserActivity.this,prodList));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    Log.d("EXC","Exception occurred in performingOperationAfterFetching");
+                }
+            }
+
         }
     }
 }
