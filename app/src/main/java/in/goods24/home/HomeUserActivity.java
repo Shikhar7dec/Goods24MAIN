@@ -64,7 +64,8 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v){
         for(int itr=0;itr<prodCatTypeIDArr.length;itr++){
             if(v.getId()==Integer.parseInt(prodCatTypeIDArr[itr])){
-                showValidationMsg("You have selected>>"+prodCatTypeArr[itr]);
+                fetchProductsByCategory(prodCatTypeIDArr[itr]);
+                //showValidationMsg("You have selected>>"+prodCatTypeArr[itr]);
             }
         }
 
