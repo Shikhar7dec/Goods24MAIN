@@ -3,6 +3,8 @@ package in.goods24.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,13 +12,16 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.TabHost;
+import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +32,10 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -38,7 +47,9 @@ import in.goods24.common.ViewProfile;
 import in.goods24.pojo.ProductPOJO;
 import in.goods24.util.ConstantsUtil;
 import in.goods24.util.HttpUtils;
-import in.goods24.util.ProductsGridAdapter;
+
+import static in.goods24.util.ConstantsUtil.HEIGHT;
+import static in.goods24.util.ConstantsUtil.WIDTH;
 
 public class HomeUserActivity extends AppCompatActivity implements View.OnClickListener{
     private RequestParams rp;
@@ -300,11 +311,9 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                         productObj.setProductImage(jsonObject.getString("product_image"));
                         prodList.add(productObj);
                     }
-                    /*for(ProductPOJO product:prodList){
-                        Log.d("DEB","Values of Products"+product.toString());
-                    }*/
-                    GridView gridView = (GridView) findViewById(R.id.gridViewProducts);
-                    gridView.setAdapter(new ProductsGridAdapter(HomeUserActivity.this,prodList));
+
+                        Log.d("DEB","Size of Products"+prodList.size());
+                    addElementsToTableLayout(prodList);
                 }
                 catch (Exception e){
                     e.printStackTrace();
@@ -312,6 +321,78 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
 
+        }
+
+        private void addElementsToTableLayout(ArrayList<ProductPOJO> prodList) {
+            TableLayout tableLayout  = (TableLayout)findViewById(R.id.tableLayoutProducts);
+            tableLayout.removeAllViews();
+            LayoutInflater inflater = (LayoutInflater) HomeUserActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            while(0!=prodList.size()){
+                TableRow tableRow = new TableRow(HomeUserActivity.this);
+                for(int itr=0;itr<2;itr++){
+                    if(0==prodList.size()){
+                        break;
+                    }
+                    View viewForTableRow = inflater.inflate(R.layout.prod_layout_for_table, null,false);
+                    ImageView prodImg = (ImageView) viewForTableRow
+                            .findViewById(R.id.prodImage);
+                    String imgStr = prodList.get(0).getProductImage();
+                    imgStr = imgStr.substring(imgStr.indexOf(",")+1);
+                    InputStream isImage = new ByteArrayInputStream(Base64.decode(imgStr.getBytes(),Base64.DEFAULT));
+                    Bitmap bitmap = BitmapFactory.decodeStream(new  FlushedInputStream(isImage));
+                    prodImg.setImageBitmap(bitmap);
+                    prodImg.getLayoutParams().height = HEIGHT/2;
+                    prodImg.getLayoutParams().width = WIDTH/2;
+                    prodImg.requestLayout();
+                    TextView prodNameTxt = (TextView)viewForTableRow.findViewById(R.id.prodName);
+                    TextView prodDescTxt = (TextView)viewForTableRow.findViewById(R.id.prodDesc);
+                    TextView prodPriceTxt = (TextView)viewForTableRow.findViewById(R.id.prodPrice);
+                    TextView prodDiscTxt = (TextView)viewForTableRow.findViewById(R.id.prodDisc);
+                    prodNameTxt.setText(prodList.get(0).getProductName());
+                    prodDescTxt.setText(prodList.get(0).getProductDesc());
+                    prodPriceTxt.setText(prodList.get(0).getProductRate());
+                    prodDiscTxt.setText(prodList.get(0).getProductDiscount());
+                    tableRow.addView(viewForTableRow);
+                    prodList.remove(0);
+                }
+                TableLayout.LayoutParams tableRowParams=
+                        new TableLayout.LayoutParams
+                                (TableLayout.LayoutParams.FILL_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
+
+                int leftMargin=10;
+                int topMargin=2;
+                int rightMargin=10;
+                int bottomMargin=2;
+
+                tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
+                tableRow.setLayoutParams(tableRowParams);
+                //tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
+                tableLayout.addView(tableRow);
+            }
+        }
+    }
+    static class FlushedInputStream extends FilterInputStream {
+        public FlushedInputStream(InputStream inputStream) {
+            super(inputStream);
+        }
+
+        @Override
+        public long skip(long n) throws IOException {
+            long totalBytesSkipped = 0L;
+            while (totalBytesSkipped < n) {
+                long bytesSkipped = in.skip(n - totalBytesSkipped);
+                if (bytesSkipped == 0L) {
+                    int b = read();
+                    if (b < 0) {
+                        break;  // we reached EOF
+                    } else {
+                        bytesSkipped = 1; // we read one byte
+                    }
+                }
+                totalBytesSkipped += bytesSkipped;
+            }
+            return totalBytesSkipped;
         }
     }
 }

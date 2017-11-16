@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:id="@+id/horizontalScrollView">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -31,24 +32,18 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
-
-        <LinearLayout
+        android:layout_below="@+id/horizontalScrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp">
+        <TableLayout
+            android:id="@+id/tableLayoutProducts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <GridView
-                android:id="@+id/gridViewProducts"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:numColumns="auto_fit"
-                android:columnWidth="90dp"
-                android:horizontalSpacing="10dp"
-                android:verticalSpacing="10dp"
-                android:gravity="center"
-                android:stretchMode="columnWidth"/>
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"/>
     </ScrollView>
+
+
 
 </RelativeLayout>
