@@ -46,6 +46,7 @@ import in.goods24.common.UpdateProfile;
 import in.goods24.common.ViewProfile;
 import in.goods24.pojo.ProductPOJO;
 import in.goods24.util.ConstantsUtil;
+import in.goods24.util.GenericUtil;
 import in.goods24.util.HttpUtils;
 
 import static in.goods24.util.ConstantsUtil.HEIGHT;
@@ -352,6 +353,14 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                     prodDescTxt.setText(prodList.get(0).getProductDesc());
                     prodPriceTxt.setText(prodList.get(0).getProductRate());
                     prodDiscTxt.setText(prodList.get(0).getProductDiscount());
+                    if(itr==0){
+                        GenericUtil.setMargins(viewForTableRow,10,0,0,0);
+                        GenericUtil.setMarginStart(viewForTableRow,10);
+                    }
+                    else{
+                        GenericUtil.setMargins(viewForTableRow,0,0,10,0);
+                        GenericUtil.setMarginEnd(viewForTableRow,10);
+                    }
                     tableRow.addView(viewForTableRow);
                     prodList.remove(0);
                 }
