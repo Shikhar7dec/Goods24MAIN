@@ -22,7 +22,8 @@
             <TableRow
                 android:id="@+id/upperMenuBarRow"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp">
 
             </TableRow>
 
@@ -39,9 +40,10 @@
         <TableLayout
             android:id="@+id/tableLayoutProducts"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"/>
+            android:gravity="center"
+            android:stretchColumns="*" />
     </ScrollView>
 
 

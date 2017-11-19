@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -58,6 +61,8 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
     private int backButtonCount= 0;
     private String[] prodCatTypeArr;
     private String[] prodCatTypeIDArr;
+    private ArrayList<String> distUserIDsProdList;
+    private ArrayList<String> prodIDsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,28 +79,44 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v){
+        //Log.d("deb","inside onClick");
         for(int itr=0;itr<prodCatTypeIDArr.length;itr++){
             if(v.getId()==Integer.parseInt(prodCatTypeIDArr[itr])){
                 fetchProductsByCategory(prodCatTypeIDArr[itr]);
+                break;
                 //showValidationMsg("You have selected>>"+prodCatTypeArr[itr]);
             }
+        }
+        for(String prodID:prodIDsList){
+            if(v.getId()==Integer.parseInt("777"+prodID+"777")){
+                showValidationMsg("Add to Cart is selected for Prod ID>>"+prodID);
+                break;
+            }
+            if(v.getId()==Integer.parseInt("555"+prodID+"555")){
+                showValidationMsg("Buy now is selected for Prod ID>>"+prodID);
+                break;
+            }
+
         }
 
     }
     private void setTabs() {
         TableRow tabs = (TableRow)findViewById(R.id.upperMenuBarRow);
         for(int i=0;i<prodCatTypeArr.length;i++){
-            //Button element = new Button(this);
-            TextView element = new TextView(this);
+            Button element = new Button(this);
+            //TextView element = new TextView(this);
             element.setText(prodCatTypeArr[i]);
             element.setBackgroundResource(R.drawable.button_design_background);
             element.setTextSize(10);
             element.setTextColor(Color.WHITE);
             element.setId(Integer.parseInt(prodCatTypeIDArr[i]));
             tabs.addView(element);
+            TextView tv =new TextView(this);
+            tv.setText(" ");
+            tabs.addView(tv);
         }
-            makeCategoryClickable();
-            fetchProductsByCategory(prodCatTypeIDArr[0]);
+        makeCategoryClickable();
+        fetchProductsByCategory(prodCatTypeIDArr[0]);
     }
 
     private void fetchProductsByCategory(String catID) {
@@ -313,7 +334,7 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                         prodList.add(productObj);
                     }
 
-                        Log.d("DEB","Size of Products"+prodList.size());
+                    Log.d("DEB","Size of Products"+prodList.size());
                     addElementsToTableLayout(prodList);
                 }
                 catch (Exception e){
@@ -328,10 +349,14 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
             TableLayout tableLayout  = (TableLayout)findViewById(R.id.tableLayoutProducts);
             tableLayout.removeAllViews();
             LayoutInflater inflater = (LayoutInflater) HomeUserActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            distUserIDsProdList=new ArrayList<>();
+            prodIDsList=new ArrayList<>();
             while(0!=prodList.size()){
                 TableRow tableRow = new TableRow(HomeUserActivity.this);
                 for(int itr=0;itr<2;itr++){
                     if(0==prodList.size()){
+                        TextView tv = new TextView(HomeUserActivity.this);
+                        tableRow.addView(tv);
                         break;
                     }
                     View viewForTableRow = inflater.inflate(R.layout.prod_layout_for_table, null,false);
@@ -353,6 +378,10 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                     prodDescTxt.setText(prodList.get(0).getProductDesc());
                     prodPriceTxt.setText(prodList.get(0).getProductRate());
                     prodDiscTxt.setText(prodList.get(0).getProductDiscount());
+                    TextView addCartBtn = (TextView) viewForTableRow.findViewById(R.id.addCartButton);
+                    TextView buyProdBtn = (TextView) viewForTableRow.findViewById(R.id.buyNowButton);
+                    addCartBtn.setId(Integer.parseInt("777"+prodList.get(0).getProductID()+"777"));
+                    buyProdBtn.setId(Integer.parseInt("555"+prodList.get(0).getProductID()+"555"));
                     if(itr==0){
                         GenericUtil.setMargins(viewForTableRow,10,0,0,0);
                         GenericUtil.setMarginStart(viewForTableRow,10);
@@ -362,11 +391,12 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                         GenericUtil.setMarginEnd(viewForTableRow,10);
                     }
                     tableRow.addView(viewForTableRow);
+                    setRequiredFieldsToList(prodList.get(0));
                     prodList.remove(0);
                 }
                 TableLayout.LayoutParams tableRowParams=
                         new TableLayout.LayoutParams
-                                (TableLayout.LayoutParams.FILL_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
+                                (TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
 
                 int leftMargin=10;
                 int topMargin=2;
@@ -374,13 +404,30 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                 int bottomMargin=2;
 
                 tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
-
+                //tableRowParams.gravity = Gravity.END;
                 tableRow.setLayoutParams(tableRowParams);
-                //tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
+                tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
                 tableLayout.addView(tableRow);
             }
+            if(0!=prodIDsList.size()){
+                makeProductButtonsClickable();
+            }
+
         }
     }
+
+    private void makeProductButtonsClickable() {
+        for(String cartBtn:prodIDsList){
+            findViewById(Integer.parseInt("777"+cartBtn+"777")).setOnClickListener(this);
+            findViewById(Integer.parseInt("555"+cartBtn+"555")).setOnClickListener(this);
+        }
+    }
+
+    private void setRequiredFieldsToList(ProductPOJO productPOJO) {
+        distUserIDsProdList.add(productPOJO.getUserID());
+        prodIDsList.add(productPOJO.getProductID());
+    }
+
     static class FlushedInputStream extends FilterInputStream {
         public FlushedInputStream(InputStream inputStream) {
             super(inputStream);
