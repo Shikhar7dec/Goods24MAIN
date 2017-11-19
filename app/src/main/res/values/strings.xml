@@ -33,4 +33,6 @@
     <string name="title_activity_view_product_dist">View Product</string>
     <string name="title_activity_update_product_dist">Update Product</string>
     <string name="title_activity_delete_product_dist">Delete Product</string>
+    <!--Related to product-->
+    <string name="rsSymbol">\u20B9</string>
 </resources>
