@@ -353,6 +353,7 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
             prodIDsList=new ArrayList<>();
             while(0!=prodList.size()){
                 TableRow tableRow = new TableRow(HomeUserActivity.this);
+                //tableRow.setBackgroundResource(R.drawable.border);
                 for(int itr=0;itr<2;itr++){
                     if(0==prodList.size()){
                         TextView tv = new TextView(HomeUserActivity.this);

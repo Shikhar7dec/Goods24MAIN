@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal">
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/border">
         <TextView
             android:id="@+id/prodName"
             android:layout_width="match_parent"
@@ -19,6 +20,7 @@
             android:id="@+id/prodImage"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="2dp"
+            android:background="@drawable/image_background_design"
             />
         <TextView
             android:id="@+id/prodDesc"
@@ -72,11 +74,6 @@
                 android:textSize="12sp"
                 android:textColor="@android:color/white"
                 android:layout_marginStart="10dp"/>
-        </TableRow>
-        <TableRow android:layout_height="1px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="1px"
-                android:layout_width="fill_parent" android:text="">
-            </TextView>
         </TableRow>
     </TableLayout>
 </LinearLayout>
