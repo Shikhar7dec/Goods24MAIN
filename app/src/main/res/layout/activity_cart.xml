@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.goods24.home.HomeUserActivity">
+    tools:context="in.goods24.cart.CartActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbarHome"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,18 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_home_user" />
-    <include layout="@layout/progress_bar_layout"/>
+    <include layout="@layout/content_cart" />
 
-    <com.andremion.counterfab.CounterFab
-        android:id="@+id/fab_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="0dp"
-        app:fabSize="mini"
-        app:rippleColor="@android:color/transparent"
-        app:srcCompat="@drawable/icon_business_cart" />
 </android.support.design.widget.CoordinatorLayout>

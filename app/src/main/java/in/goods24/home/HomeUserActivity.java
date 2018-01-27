@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -27,6 +28,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andremion.counterfab.CounterFab;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -40,6 +42,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import in.goods24.cart.CartActivity;
 import in.goods24.common.ChangePwdActivity;
 import in.goods24.common.MainActivity;
 import in.goods24.R;
@@ -61,7 +64,7 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
     private String[] prodCatTypeIDArr;
     private ArrayList<String> distUserIDsProdList;
     private ArrayList<String> prodIDsList;
-
+    private String loggedInUserID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,35 +72,166 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarHome);
         setSupportActionBar(toolbar);
         fetchProductCatTypes();
+        findViewById(R.id.fab_cart).setOnClickListener(this);
+
+        showCartCount();
+
+        /*CounterFab counterFab = (CounterFab) findViewById(R.id.fab_cart);
+        counterFab.setCount(7);*/
         /*SharedPreferences sharedpreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
         String userTypeName =  sharedpreferences.getString("loginUserTypeName","");
         TextView userTypeTextView= (TextView)findViewById(R.id.userTypeTextView);
         userTypeTextView.setText(userTypeName);*/
     }
 
+    private void showCartCount() {
+        SharedPreferences sharedPreferences = getSharedPreferences(ConstantsUtil.MyPREFERENCES, Context.MODE_PRIVATE);
+        loggedInUserID =sharedPreferences.getString("loggedInUserID","");
+        rp =new RequestParams();
+        rp.add("appId", "g24API8");
+        rp.add("pwd", "API8g24");
+        rp.add("oprn","getCartCount");
+        rp.add("user_id",loggedInUserID);
+        String phpName = "manageCart.php";
+        Log.d("REQ","Request parameter are>>>>"+rp+">>"+phpName);
+        makeShowCartCountRestCall(rp,phpName);
+    }
+
+    private void makeShowCartCountRestCall(RequestParams requestParams, String phpName) {
+
+        HttpUtils.post(phpName, requestParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject res) {
+                Log.d("res", "---------------response from host>>> " + res + "Status is" + statusCode);
+                try {
+
+                    String respMsg = res.getString("res");
+                    int errCode =  res.getInt("error_code");
+                    int cartCount = res.getInt("cart_count");
+                    Log.d("res", "Response message is>>>>" + respMsg+"CatNames>>"+cartCount);
+                    settingCartCount(respMsg,errCode,cartCount);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showValidationMsg("Please check your internet and try again");
+                        /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                        relLayoutProgress.setVisibility(View.GONE);*/
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                                  Throwable throwable) {
+                Log.d("log", "Status code is>>" + statusCode + "Response code>>>" + responseString);
+                showValidationMsg("Some Error occurred please try again");
+                    /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);*/
+            }
+        });
+
+
+    }
+
+    private void settingCartCount(String respMsg, int errCode, int cartCount) {
+        if(errCode==0){
+            CounterFab counterFab = (CounterFab) findViewById(R.id.fab_cart);
+            counterFab.setCount(cartCount);
+        }
+    }
+
     @Override
     public void onClick(View v){
         //Log.d("deb","inside onClick");
-        for(int itr=0;itr<prodCatTypeIDArr.length;itr++){
-            if(v.getId()==Integer.parseInt(prodCatTypeIDArr[itr])){
-                fetchProductsByCategory(prodCatTypeIDArr[itr]);
-                break;
-                //showValidationMsg("You have selected>>"+prodCatTypeArr[itr]);
-            }
-        }
-        for(String prodID:prodIDsList){
-            if(v.getId()==Integer.parseInt("777"+prodID+"777")){
-                showValidationMsg("Add to Cart is selected for Prod ID>>"+prodID);
-                break;
-            }
-            if(v.getId()==Integer.parseInt("555"+prodID+"555")){
-                showValidationMsg("Buy now is selected for Prod ID>>"+prodID);
-                break;
-            }
+        if(v.getId()==R.id.fab_cart){
+            //FloatingActionButton cartButton = (FloatingActionButton)findViewById(R.id.fab_cart);
+            //CounterFab counterFab = (CounterFab) findViewById(R.id.fab_cart);
+            /*counterFab.increase();
+            showValidationMsg("Functionality under development");*/
+            Intent i = new Intent(this, CartActivity.class);
+            startActivity(i);
 
         }
+        if(null!=prodCatTypeIDArr){
+            for(int itr=0;itr<prodCatTypeIDArr.length;itr++){
+                if(v.getId()==Integer.parseInt(prodCatTypeIDArr[itr])){
+                    fetchProductsByCategory(prodCatTypeIDArr[itr]);
+                    //showValidationMsg("You have selected>>"+prodCatTypeArr[itr]);
+                    break;
+                }
+            }
+        }
+
+        if(null!=prodIDsList){
+            for(String prodID:prodIDsList){
+                if(v.getId()==Integer.parseInt("777"+prodID+"777")){
+                    showValidationMsg("Add to Cart is selected for Prod ID>>"+prodID);
+                    addCurrProdCart(prodID,loggedInUserID);
+                    break;
+                }
+                if(v.getId()==Integer.parseInt("555"+prodID+"555")){
+                    showValidationMsg("Buy now is selected for Prod ID>>"+prodID);
+                    break;
+                }
+
+            }
+        }
+
+
 
     }
+
+    private void addCurrProdCart(String prodID,String loggedInUserID) {
+        rp =new RequestParams();
+        rp.add("appId", "g24API8");
+        rp.add("pwd", "API8g24");
+        rp.add("oprn","add");
+        rp.add("user_id",loggedInUserID);
+        rp.add("product_id",prodID);
+        String phpName = "manageCart.php";
+        Log.d("REQ","Request parameter are>>>>"+rp+">>"+phpName);
+        makeAddToCartCountRestCall(rp,phpName);
+
+    }
+
+    private void makeAddToCartCountRestCall(RequestParams requestParams, String phpName) {
+
+        HttpUtils.post(phpName, requestParams, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject res) {
+                Log.d("res", "---------------response from host>>> " + res + "Status is" + statusCode);
+                try {
+
+                    String respMsg = res.getString("res");
+                    int errCode =  res.getInt("error_code");
+                    Log.d("res", "Response message is>>>>" + respMsg+"CatNames>>"+errCode);
+                    if(0==errCode)
+                        onSuccessfulCartAdd(respMsg);
+                    else
+                        showValidationMsg(respMsg);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showValidationMsg("Please check your internet and try again");
+                        /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                        relLayoutProgress.setVisibility(View.GONE);*/
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                                  Throwable throwable) {
+                Log.d("log", "Status code is>>" + statusCode + "Response code>>>" + responseString);
+                showValidationMsg("Some Error occurred please try again");
+                    /*RelativeLayout relLayoutProgress = (RelativeLayout) findViewById(R.id.progressBarLayout);
+                    relLayoutProgress.setVisibility(View.GONE);*/
+            }
+        });
+
+
+    }
+
+    private void onSuccessfulCartAdd(String respMsg) {
+        showCartCount();
+    }
+
     private void setTabs() {
         TableRow tabs = (TableRow)findViewById(R.id.upperMenuBarRow);
         for(int i=0;i<prodCatTypeArr.length;i++){

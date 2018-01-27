@@ -30,5 +30,6 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'pub.devrel:easypermissions:0.2.1'
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    compile 'com.github.andremion:counterfab:1.0.1'
     testCompile 'junit:junit:4.12'
 }
