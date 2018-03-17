@@ -36,4 +36,7 @@
     <!--Related to product-->
     <string name="rsSymbol">\u20B9</string>
     <string name="title_activity_cart">My Cart</string>
+    <string name="title_activity_buy_product">Buy Now</string>
+    <string name="quantity">Quantity:</string>
+    <string name="addressFooter">Note: Delivery Address will be same as your profile address</string>
 </resources>

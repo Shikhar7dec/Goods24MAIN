@@ -50,9 +50,19 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:textColor="@color/colorText"/>
+    <TextView
+        android:id="@+id/prodQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="15sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/colorText"/>
     <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,12 +74,12 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_design_background"
                 android:fontFamily="aerial"
-                android:text="Delete"
+                android:text="Remove"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginBottom="5dp"/>
         </TableRow>
     </TableLayout>
 </LinearLayout>

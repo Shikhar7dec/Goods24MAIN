@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -29,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andremion.counterfab.CounterFab;
+import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -42,7 +42,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-import in.goods24.cart.CartActivity;
+import in.goods24.user.BuyProduct;
+import in.goods24.user.CartActivity;
 import in.goods24.common.ChangePwdActivity;
 import in.goods24.common.MainActivity;
 import in.goods24.R;
@@ -65,6 +66,8 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
     private ArrayList<String> distUserIDsProdList;
     private ArrayList<String> prodIDsList;
     private String loggedInUserID;
+    ArrayList<ProductPOJO> prodList=null;
+    ArrayList<ProductPOJO> prodListClone=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,12 +166,13 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
         if(null!=prodIDsList){
             for(String prodID:prodIDsList){
                 if(v.getId()==Integer.parseInt("777"+prodID+"777")){
-                    showValidationMsg("Add to Cart is selected for Prod ID>>"+prodID);
+                    //showValidationMsg("Add to Cart is selected for Prod ID>>"+prodID);
                     addCurrProdCart(prodID,loggedInUserID);
                     break;
                 }
                 if(v.getId()==Integer.parseInt("555"+prodID+"555")){
-                    showValidationMsg("Buy now is selected for Prod ID>>"+prodID);
+                    //showValidationMsg("Buy now is selected for Prod ID>>"+prodID);
+                    buyCurrProd(prodID);
                     break;
                 }
 
@@ -177,6 +181,17 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+    }
+
+    private void buyCurrProd(String prodID) {
+        for(ProductPOJO currObject:prodListClone){
+            if(currObject.getProductID().equalsIgnoreCase(prodID)){
+                Intent i = new Intent(this, BuyProduct.class);
+                i.putExtra("selectedProdObject",new Gson().toJson(currObject));
+                startActivity(i);
+            }
+        }
+        //Intent i = new Intent(this,)
     }
 
     private void addCurrProdCart(String prodID,String loggedInUserID) {
@@ -387,7 +402,6 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private class FetchProductsHelper extends AsyncTask<String,String,String> {
-        ArrayList<ProductPOJO> prodList=null;
         int errCode=1;
         String respMsg;
         @Override
@@ -467,6 +481,7 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                     }
 
                     Log.d("DEB","Size of Products"+prodList.size());
+                    prodListClone = new ArrayList<>(prodList);
                     addElementsToTableLayout(prodList);
                 }
                 catch (Exception e){
@@ -516,6 +531,7 @@ public class HomeUserActivity extends AppCompatActivity implements View.OnClickL
                     TextView buyProdBtn = (TextView) viewForTableRow.findViewById(R.id.buyNowButton);
                     addCartBtn.setId(Integer.parseInt("777"+prodList.get(0).getProductID()+"777"));
                     buyProdBtn.setId(Integer.parseInt("555"+prodList.get(0).getProductID()+"555"));
+                    viewForTableRow.setId(Integer.parseInt("555"+prodList.get(0).getProductID()+"555"));
                     if(itr==0){
                         GenericUtil.setMargins(viewForTableRow,10,0,0,0);
                         GenericUtil.setMarginStart(viewForTableRow,10);

@@ -153,10 +153,19 @@
                 android:value="in.goods24.home.HomeDistributorActivity" />
         </activity>
         <activity
-            android:name=".cart.CartActivity"
+            android:name=".user.CartActivity"
             android:label="@string/title_activity_cart"
             android:parentActivityName=".home.HomeUserActivity"
             android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="in.goods24.home.HomeUserActivity" />
+        </activity>
+        <activity android:name=".user.BuyProduct"
+            android:label="@string/title_activity_buy_product"
+            android:parentActivityName=".home.HomeUserActivity"
+            android:theme="@style/AppTheme"
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="in.goods24.home.HomeUserActivity" />
